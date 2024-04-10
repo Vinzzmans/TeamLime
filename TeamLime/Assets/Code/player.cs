@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     {
         inputHorizontal = Input.GetAxisRaw(inputNameHorizontal);
         inputVertical = Input.GetAxisRaw(inputNameVertical);
+
     }
 
     private void FixedUpdate()
