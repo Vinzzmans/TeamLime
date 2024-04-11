@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PickFish : MonoBehaviour
 {
@@ -8,17 +9,22 @@ public class PickFish : MonoBehaviour
     public bool withinReach = false;
     private bool isReturning = false;
 
+    [SerializeField] private PlayerInput _inputActions;
+    private InputAction _interactAction;
+
     private PickBerrys berryScript; // Referenz auf das PickBerrys-Skript
 
     void Start()
     {
         berryScript = FindObjectOfType<PickBerrys>(); // Finde das PickBerrys-Skript im Spiel
+        _interactAction = _inputActions.actions["Interact"];
+        _interactAction.performed += _ => OnPickUpFish();
     }
 
-    void Update()
+    void OnPickUpFish()
     {
         // Überprüfe, ob die Taste "E" gedrückt wurde
-        if (Input.GetKeyDown(KeyCode.Return) && withinReach && !fish.activeSelf && !isReturning && !berryScript.IsBerryActive())
+        if (withinReach && !fish.activeSelf && !isReturning && !berryScript.IsBerryActive())
         {
             StartCoroutine(ActivateFishAfterDelay(2f)); // Starte die Verzögerungsroutine mit einer Verzögerung von 2 Sekunden
         }
