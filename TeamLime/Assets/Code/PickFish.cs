@@ -43,7 +43,7 @@ public class PickFish : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Überprüfe, ob der Spieler sich im Trigger befindet
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player2"))
         {
             withinReach = true;
         }
@@ -52,7 +52,7 @@ public class PickFish : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         // Überprüfe, ob der Spieler den Trigger verlassen hat
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player2"))
         {
             withinReach = false;
         }

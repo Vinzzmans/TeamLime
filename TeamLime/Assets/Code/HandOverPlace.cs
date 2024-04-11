@@ -21,7 +21,21 @@ public class HandOverPlace : MonoBehaviour
     public GameObject bucketFullAtPlace; // Beere am HandOverPlace
 
 
+    public GameObject redPotionHome; // Beere am Spieler 2
+    public GameObject bluePotionHome; // Beere am Spieler 2
+    public GameObject greenPotionHome; // Beere am Spieler 2
+
+    public GameObject redPotionGarden; // Beere am Spieler 1
+    public GameObject bluePotionGarden; // Beere am Spieler 1
+    public GameObject greenPotionGarden; // Beere am Spieler 1
+
+    public GameObject redPotionPlace; // Beere am HandOverPlace
+    public GameObject bluePotionPlace; // Beere am HandOverPlace
+    public GameObject greenPotionPlace; // Beere am HandOverPlace
+
+
     public bool withinReach = false;
+    public bool withinReach2 = false;
 
     [SerializeField] private PlayerInput keyBoardInputActions;
     [SerializeField] private PlayerInput controllerInputActions;
@@ -67,29 +81,69 @@ public class HandOverPlace : MonoBehaviour
                 Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
             }
 
-            if (bucketEmptyAtPlayerGarden.activeSelf && !bucketEmptyAtPlace.activeSelf)
+            if (bucketEmptyAtPlayerHome.activeSelf && !bucketEmptyAtPlace.activeSelf)
             {
                 bucketEmptyAtPlace.SetActive(true);
-                bucketEmptyAtPlayerGarden.SetActive(false);
+                bucketEmptyAtPlayerHome.SetActive(false);
                 Debug.Log("Spieler 2: EmptyBucket wurde am HandOverPlace abgelegt!");
             }
-            else if (!bucketEmptyAtPlayerGarden.activeSelf && bucketEmptyAtPlace.activeSelf)
+            else if (!bucketEmptyAtPlayerHome.activeSelf && bucketEmptyAtPlace.activeSelf)
             {
                 bucketEmptyAtPlace.SetActive(false);
-                bucketEmptyAtPlayerGarden.SetActive(true);
+                bucketEmptyAtPlayerHome.SetActive(true);
                 Debug.Log("Spieler 2: EmptyBucket vom HandOverPlace genommen!");
             }
 
-            if (bucketFullAtPlayerGarden.activeSelf && !bucketFullAtPlace.activeSelf)
+            if (bucketFullAtPlayerHome.activeSelf && !bucketFullAtPlace.activeSelf)
             {
                 bucketFullAtPlace.SetActive(true);
-                bucketFullAtPlayerGarden.SetActive(false);
-                Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
+                bucketFullAtPlayerHome.SetActive(false);
+                Debug.Log("Spieler 2: BucketFull wurde am HandOverPlace abgelegt!");
             }
-            else if (!bucketFullAtPlayerGarden.activeSelf && bucketFullAtPlace.activeSelf)
+            else if (!bucketFullAtPlayerHome.activeSelf && bucketFullAtPlace.activeSelf)
             {
                 bucketFullAtPlace.SetActive(false);
-                bucketFullAtPlayerGarden.SetActive(true);
+                bucketFullAtPlayerHome.SetActive(true);
+                Debug.Log("Spieler 2: BucketFull vom HandOverPlace genommen!");
+            }
+
+            //Potion Stuff
+            if (redPotionHome.activeSelf && !redPotionPlace.activeSelf)
+            {
+                redPotionPlace.SetActive(true);
+                redPotionHome.SetActive(false);
+                Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
+            }
+            else if (!redPotionHome.activeSelf && redPotionPlace.activeSelf)
+            {
+                redPotionPlace.SetActive(false);
+                redPotionHome.SetActive(true);
+                Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
+            }
+
+            if (bluePotionHome.activeSelf && !bluePotionPlace.activeSelf)
+            {
+                bluePotionPlace.SetActive(true);
+                bluePotionHome.SetActive(false);
+                Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
+            }
+            else if (!bluePotionHome.activeSelf && bluePotionPlace.activeSelf)
+            {
+                bluePotionPlace.SetActive(false);
+                bluePotionHome.SetActive(true);
+                Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
+            }
+
+            if (greenPotionHome.activeSelf && !greenPotionPlace.activeSelf)
+            {
+                greenPotionPlace.SetActive(true);
+                greenPotionHome.SetActive(false);
+                Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
+            }
+            else if (!greenPotionHome.activeSelf && greenPotionPlace.activeSelf)
+            {
+                greenPotionPlace.SetActive(false);
+                greenPotionHome.SetActive(true);
                 Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
             }
         }
@@ -97,7 +151,7 @@ public class HandOverPlace : MonoBehaviour
 
     void OnControllerHandOver()
     {
-        if (withinReach)
+        if (withinReach2)
         {
 
             if ( berryAtPlayerGarden.activeSelf && !berryAtPlace.activeSelf)
@@ -125,32 +179,71 @@ public class HandOverPlace : MonoBehaviour
                 fishAtPlace.SetActive(false);
                 Debug.Log("Spieler 1: Fisch vom HandOverPlace genommen!");
             }
-            if (bucketEmptyAtPlayerHome.activeSelf && !bucketEmptyAtPlace.activeSelf)
+            if (bucketEmptyAtPlayerGarden.activeSelf && !bucketEmptyAtPlace.activeSelf)
             {
                 bucketEmptyAtPlace.SetActive(true);
-                bucketEmptyAtPlayerHome.SetActive(false);
+                bucketEmptyAtPlayerGarden.SetActive(false);
                 Debug.Log("Spieler 2: EmptyBucket wurde am HandOverPlace abgelegt!");
             }
-            else if (!bucketEmptyAtPlayerHome.activeSelf && bucketEmptyAtPlace.activeSelf)
+            else if (!bucketEmptyAtPlayerGarden.activeSelf && bucketEmptyAtPlace.activeSelf)
             {
                 bucketEmptyAtPlace.SetActive(false);
-                bucketEmptyAtPlayerHome.SetActive(true);
+                bucketEmptyAtPlayerGarden.SetActive(true);
                 Debug.Log("Spieler 2: EmptyBucket vom HandOverPlace genommen!");
             }
 
-            if (bucketFullAtPlayerHome.activeSelf && !bucketFullAtPlace.activeSelf)
+            if (bucketFullAtPlayerGarden.activeSelf && !bucketFullAtPlace.activeSelf)
             {
                 bucketFullAtPlace.SetActive(true);
-                bucketFullAtPlayerHome.SetActive(false);
+                bucketFullAtPlayerGarden.SetActive(false);
                 Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
             }
-            else if (!bucketFullAtPlayerHome.activeSelf && bucketFullAtPlace.activeSelf)
+            else if (!bucketFullAtPlayerGarden.activeSelf && bucketFullAtPlace.activeSelf)
             {
                 bucketFullAtPlace.SetActive(false);
-                bucketFullAtPlayerHome.SetActive(true);
+                bucketFullAtPlayerGarden.SetActive(true);
                 Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
             }
 
+            /////Potion Stuff
+            if (redPotionGarden.activeSelf && !redPotionPlace.activeSelf)
+            {
+                redPotionPlace.SetActive(true);
+                redPotionGarden.SetActive(false);
+                Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
+            }
+            else if (!redPotionGarden.activeSelf && redPotionPlace.activeSelf)
+            {
+                redPotionPlace.SetActive(false);
+                redPotionGarden.SetActive(true);
+                Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
+            }
+
+            if (bluePotionGarden.activeSelf && !bluePotionPlace.activeSelf)
+            {
+                bluePotionPlace.SetActive(true);
+                bluePotionGarden.SetActive(false);
+                Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
+            }
+            else if (!bluePotionGarden.activeSelf && bluePotionPlace.activeSelf)
+            {
+                bluePotionPlace.SetActive(false);
+                bluePotionGarden.SetActive(true);
+                Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
+            }
+
+            if (greenPotionGarden.activeSelf && !greenPotionPlace.activeSelf)
+            {
+                greenPotionPlace.SetActive(true);
+                greenPotionGarden.SetActive(false);
+                Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
+            }
+            else if (!greenPotionGarden.activeSelf && greenPotionPlace.activeSelf)
+            {
+                greenPotionPlace.SetActive(false);
+                greenPotionGarden.SetActive(true);
+                Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
+            }
         }
     }
 
@@ -158,22 +251,34 @@ public class HandOverPlace : MonoBehaviour
     // Wenn ein Spieler den Bereich betritt
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Spieler betritt den Bereich!");
 
         if (other.CompareTag("Player"))
         {
             withinReach = true;
+            Debug.Log("Spieler1 betritt den Bereich!");
         }
+        if (other.CompareTag("Player2"))
+        {
+            withinReach2 = true;
+            Debug.Log("Spieler2 betritt den Bereich!");
+        }
+
     }
 
     // Wenn ein Spieler den Bereich verlässt
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Spieler verlässt den Bereich!");
 
         if (other.CompareTag("Player"))
         {
             withinReach = false;
+            Debug.Log("Spieler1 verlässt den Bereich!");
+        }
+
+        if (other.CompareTag("Player2"))
+        {
+            withinReach2 = false;
+            Debug.Log("Spieler2 verlässt den Bereich!");
         }
     }
 }
