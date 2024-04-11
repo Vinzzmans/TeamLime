@@ -9,6 +9,7 @@ public class Stomping : MonoBehaviour
 
     public GameObject berryAtPlayerHome;
     public GameObject fishAtPlayerHome;
+    public GameObject stick;
 
     public GameObject stompedBerryAtHome;
     public GameObject stompedFishAtHome;
@@ -45,6 +46,7 @@ public class Stomping : MonoBehaviour
             if(withinReach && berryAtPlayerHome.activeInHierarchy)
             {
                 berryAtPlayerHome.SetActive(false);
+           
                 isBerry = true;
                 stompingProgress += 1;
                 Debug.Log("Berry reingeworfen");
@@ -52,6 +54,7 @@ public class Stomping : MonoBehaviour
             if (withinReach && fishAtPlayerHome.activeInHierarchy)
             {
                 fishAtPlayerHome.SetActive(false);
+              
                 isFish = true;
                 stompingProgress += 1;
             }
@@ -62,18 +65,21 @@ public class Stomping : MonoBehaviour
             {
                 stompedBerryAtHome.SetActive(true);
                 stompingProgress = 0;
+                isBerry = false;
 
             }
             if (isFish)
             {
                 stompedFishAtHome.SetActive(true);
                 stompingProgress = 0;
+                isFish = false;
             }
 
         }
         else
         {
             stompingProgress += 1;
+            stick.SetActive(true);
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
