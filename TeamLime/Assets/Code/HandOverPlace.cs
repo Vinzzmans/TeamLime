@@ -12,10 +12,16 @@ public class HandOverPlace : MonoBehaviour
     public GameObject fishAtPlayerHome; // Fisch am Spieler 2
     public GameObject fishAtPlace; // Fisch am HandOverPlace
 
-    public bool withinReach = false;
+    public GameObject bucketEmptyAtPlayerGarden; // Beere am Spieler 1
+    public GameObject bucketEmptyAtPlayerHome; // Beere am Spieler 2
+    public GameObject bucketEmptyAtPlace; // Beere am HandOverPlace
 
-    private bool isReturnPressed = false;
-    private bool isEPressed = false;
+    public GameObject bucketFullAtPlayerGarden; // Beere am Spieler 1
+    public GameObject bucketFullAtPlayerHome; // Beere am Spieler 2
+    public GameObject bucketFullAtPlace; // Beere am HandOverPlace
+
+
+    public bool withinReach = false;
 
     [SerializeField] private PlayerInput keyBoardInputActions;
     [SerializeField] private PlayerInput controllerInputActions;
@@ -37,20 +43,54 @@ public class HandOverPlace : MonoBehaviour
         {
             if (berryAtPlayerHome.activeSelf && !berryAtPlace.activeSelf)
             {
-                PlayerHomePlaceBerry();
+                berryAtPlace.SetActive(true);
+                berryAtPlayerHome.SetActive(false);
+                Debug.Log("Spieler 2: Beere wurde am HandOverPlace abgelegt!");
             }
             else if (!berryAtPlayerHome.activeSelf && berryAtPlace.activeSelf)
             {
-                PlayerHomeTakeBerry();
+                berryAtPlace.SetActive(false);
+                berryAtPlayerHome.SetActive(true);
+                Debug.Log("Spieler 2: Beere vom HandOverPlace genommen!");
             }
 
             if (fishAtPlayerHome.activeSelf && !fishAtPlace.activeSelf)
             {
-                PlayerHomePlaceFish();
+                fishAtPlace.SetActive(true);
+                fishAtPlayerHome.SetActive(false);
+                Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
             }
             else if (!fishAtPlayerHome.activeSelf && fishAtPlace.activeSelf)
             {
-                PlayerHomeTakeFish();
+                fishAtPlace.SetActive(false);
+                fishAtPlayerHome.SetActive(true);
+                Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
+            }
+
+            if (bucketEmptyAtPlayerGarden.activeSelf && !bucketEmptyAtPlace.activeSelf)
+            {
+                bucketEmptyAtPlace.SetActive(true);
+                bucketEmptyAtPlayerGarden.SetActive(false);
+                Debug.Log("Spieler 2: EmptyBucket wurde am HandOverPlace abgelegt!");
+            }
+            else if (!bucketEmptyAtPlayerGarden.activeSelf && bucketEmptyAtPlace.activeSelf)
+            {
+                bucketEmptyAtPlace.SetActive(false);
+                bucketEmptyAtPlayerGarden.SetActive(true);
+                Debug.Log("Spieler 2: EmptyBucket vom HandOverPlace genommen!");
+            }
+
+            if (bucketFullAtPlayerGarden.activeSelf && !bucketFullAtPlace.activeSelf)
+            {
+                bucketFullAtPlace.SetActive(true);
+                bucketFullAtPlayerGarden.SetActive(false);
+                Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
+            }
+            else if (!bucketFullAtPlayerGarden.activeSelf && bucketFullAtPlace.activeSelf)
+            {
+                bucketFullAtPlace.SetActive(false);
+                bucketFullAtPlayerGarden.SetActive(true);
+                Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
             }
         }
     }
@@ -62,113 +102,58 @@ public class HandOverPlace : MonoBehaviour
 
             if ( berryAtPlayerGarden.activeSelf && !berryAtPlace.activeSelf)
             {
-                PlayerGardenPlaceBerry();
+                berryAtPlayerGarden.SetActive(false);
+                berryAtPlace.SetActive(true);
+                Debug.Log("Spieler 1: Beere wurde am HandOverPlace abgelegt!");
             }
             else if (!berryAtPlayerGarden.activeSelf && berryAtPlace.activeSelf)
             {
-                PlayerGardenTakeBerry();
+                berryAtPlayerGarden.SetActive(true);
+                berryAtPlace.SetActive(false);
+                Debug.Log("Spieler 1: Beere vom HandOverPlace genommen!");
             }
 
             if ( fishAtPlayerGarden.activeSelf && !fishAtPlace.activeSelf)
             {
-                PlayerGardenPlaceFish();
+                fishAtPlayerGarden.SetActive(false);
+                fishAtPlace.SetActive(true);
+                Debug.Log("Spieler 1: Fisch wurde am HandOverPlace abgelegt!");
             }
             else if (!fishAtPlayerGarden.activeSelf && fishAtPlace.activeSelf)
             {
-                PlayerGardenTakeFish();
+                fishAtPlayerGarden.SetActive(true);
+                fishAtPlace.SetActive(false);
+                Debug.Log("Spieler 1: Fisch vom HandOverPlace genommen!");
+            }
+            if (bucketEmptyAtPlayerHome.activeSelf && !bucketEmptyAtPlace.activeSelf)
+            {
+                bucketEmptyAtPlace.SetActive(true);
+                bucketEmptyAtPlayerHome.SetActive(false);
+                Debug.Log("Spieler 2: EmptyBucket wurde am HandOverPlace abgelegt!");
+            }
+            else if (!bucketEmptyAtPlayerHome.activeSelf && bucketEmptyAtPlace.activeSelf)
+            {
+                bucketEmptyAtPlace.SetActive(false);
+                bucketEmptyAtPlayerHome.SetActive(true);
+                Debug.Log("Spieler 2: EmptyBucket vom HandOverPlace genommen!");
+            }
+
+            if (bucketFullAtPlayerHome.activeSelf && !bucketFullAtPlace.activeSelf)
+            {
+                bucketFullAtPlace.SetActive(true);
+                bucketFullAtPlayerHome.SetActive(false);
+                Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
+            }
+            else if (!bucketFullAtPlayerHome.activeSelf && bucketFullAtPlace.activeSelf)
+            {
+                bucketFullAtPlace.SetActive(false);
+                bucketFullAtPlayerHome.SetActive(true);
+                Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
             }
 
         }
     }
 
-
-    // Spieler 1: Beere am Spieler 1 ablegen
-    public void PlayerGardenPlaceBerry()
-    {
-        if (withinReach && berryAtPlayerGarden.activeSelf && !berryAtPlace.activeSelf)
-        {
-            berryAtPlayerGarden.SetActive(false);
-            berryAtPlace.SetActive(true);
-            Debug.Log("Spieler 1: Beere wurde am HandOverPlace abgelegt!");
-        }
-    }
-
-    // Spieler 1: Beere vom HandOverPlace nehmen
-    public void PlayerGardenTakeBerry()
-    {
-        if ( withinReach && !berryAtPlayerGarden.activeSelf && berryAtPlace.activeSelf)
-        {
-            berryAtPlayerGarden.SetActive(true);
-            berryAtPlace.SetActive(false);
-            Debug.Log("Spieler 1: Beere vom HandOverPlace genommen!");
-        }
-    }
-
-    // Spieler 2: Beere am Spieler 2 ablegen
-    public void PlayerHomePlaceBerry()
-    {
-        if (withinReach && berryAtPlayerHome.activeSelf && !berryAtPlace.activeSelf)
-        {
-            berryAtPlace.SetActive(true);
-            berryAtPlayerHome.SetActive(false);
-            Debug.Log("Spieler 2: Beere wurde am HandOverPlace abgelegt!");
-        }
-    }
-
-    // Spieler 2: Beere vom HandOverPlace nehmen
-    public void PlayerHomeTakeBerry()
-    {
-        if ( withinReach && !berryAtPlayerHome.activeSelf && berryAtPlace.activeSelf)
-        {
-            berryAtPlace.SetActive(false);
-            berryAtPlayerHome.SetActive(true);
-            Debug.Log("Spieler 2: Beere vom HandOverPlace genommen!");
-        }
-    }
-
-    // Spieler 1: Fisch am Spieler 1 ablegen
-    public void PlayerGardenPlaceFish()
-    {
-        if ( withinReach && fishAtPlayerGarden.activeSelf && !fishAtPlace.activeSelf)
-        {
-            fishAtPlayerGarden.SetActive(false);
-            fishAtPlace.SetActive(true);
-            Debug.Log("Spieler 1: Fisch wurde am HandOverPlace abgelegt!");
-        }
-    }
-
-    // Spieler 1: Fisch vom HandOverPlace nehmen
-    public void PlayerGardenTakeFish()
-    {
-        if (withinReach && !fishAtPlayerGarden.activeSelf && fishAtPlace.activeSelf)
-        {
-            fishAtPlayerGarden.SetActive(true);
-            fishAtPlace.SetActive(false);
-            Debug.Log("Spieler 1: Fisch vom HandOverPlace genommen!");
-        }
-    }
-
-    // Spieler 2: Fisch am Spieler 2 ablegen
-    public void PlayerHomePlaceFish()
-    {
-        if ( withinReach && fishAtPlayerHome.activeSelf && !fishAtPlace.activeSelf)
-        {
-            fishAtPlace.SetActive(true);
-            fishAtPlayerHome.SetActive(false);
-            Debug.Log("Spieler 2: Fisch wurde am HandOverPlace abgelegt!");
-        }
-    }
-
-    // Spieler 2: Fisch vom HandOverPlace nehmen
-    public void PlayerHomeTakeFish()
-    {
-        if (withinReach && !fishAtPlayerHome.activeSelf && fishAtPlace.activeSelf)
-        {
-            fishAtPlace.SetActive(false);
-            fishAtPlayerHome.SetActive(true);
-            Debug.Log("Spieler 2: Fisch vom HandOverPlace genommen!");
-        }
-    }
 
     // Wenn ein Spieler den Bereich betritt
     private void OnTriggerEnter2D(Collider2D other)
