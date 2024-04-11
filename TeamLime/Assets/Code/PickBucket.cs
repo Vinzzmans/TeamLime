@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PickBucket : MonoBehaviour
 {
     public GameObject handBucket;
     public GameObject bucket;
     public GameObject bucketPlace;
+
+    [SerializeField] private PlayerInput _inputActions;
+    private InputAction _interactAction;
 
     public bool withinReach = false;
     private bool isReturning = false;
@@ -19,12 +23,15 @@ public class PickBucket : MonoBehaviour
     {
         berryScript = FindObjectOfType<PickBerrys>(); // Finde das PickBerrys-Skript im Spiel
         fishScript = FindObjectOfType<PickFish>(); // Finde das PickFish-Skript im Spiel
+
+        _interactAction = _inputActions.actions["Interact"];
+        _interactAction.performed += _ => OnBucketPickUp();
     }
 
-    void Update()
+    void OnBucketPickUp()
     {
         // Überprüfe, ob die Taste "E" gedrückt wurde
-        if (Input.GetKeyDown(KeyCode.E) && withinReach && !fishScript.IsFishActive())
+        if (withinReach && !fishScript.IsFishActive())
         {
             if (handBucket.activeSelf)
             {

@@ -83,27 +83,32 @@ public class BrewPotion : MonoBehaviour
                     {
                         redPotion.SetActive(true);
                         Debug.Log("Trank Rot erstellt");
+                        PotionReset();
                     }
-                    if(blueCounter == 3)
+                    else if(blueCounter == 3)
                     {
                         bluePotion.SetActive(true);
                         Debug.Log("Trank Blau erstellt");
+                        PotionReset();
                     }
-                    if(greenCounter == 3)
+                    else if(greenCounter == 3)
                     {
                         greenPotion.SetActive(true);
                         Debug.Log("Trank Grün erstellt");
+                        PotionReset();
                     }
                     else
                     {
                         Debug.Log("Trank fehlgeschlagen wegen Zutaten");
+                        PotionReset();
                     }
                 }
                 else
                 {
                     Debug.Log("Trank fehlgeschlagen wegen Wasser");
+                    PotionReset();
                 }
-                PotionReset();
+                //PotionReset();
             }
         }
     }
@@ -113,6 +118,8 @@ public class BrewPotion : MonoBehaviour
         blueCounter = 0;
         redCounter = 0;
         greenCounter = 0;
+        ingredientCounter = 0;
+        hasWater = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
