@@ -68,4 +68,10 @@ public class PickBucket : MonoBehaviour
             withinReach = false;
         }
     }
+
+    // Methode zur Überprüfung, ob das Wasser aktiv ist
+    public bool IsHandBucketActive()
+    {
+        return handBucket.activeSelf;
+    }
 }

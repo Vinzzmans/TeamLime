@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PickFish : MonoBehaviour
 {
     public GameObject fish;
+    public GameObject handBucket2;
     public bool withinReach = false;
     private bool isReturning = false;
 
@@ -24,7 +25,7 @@ public class PickFish : MonoBehaviour
     void OnPickUpFish()
     {
         // Überprüfe, ob die Taste "E" gedrückt wurde
-        if (withinReach && !fish.activeSelf && !isReturning && !berryScript.IsBerryActive())
+        if (withinReach && !fish.activeSelf && !handBucket2.activeSelf && !isReturning && !berryScript.IsBerryActive())
         {
             StartCoroutine(ActivateFishAfterDelay(2f)); // Starte die Verzögerungsroutine mit einer Verzögerung von 2 Sekunden
         }
