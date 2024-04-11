@@ -8,7 +8,7 @@ public class TrankAbgabeDoor : MonoBehaviour
     public GameObject trankGreen;
 
     private BestellungManager bestellungManager; 
-    private bool withinReach = false; 
+    public bool withinReach = false; 
 
     [SerializeField] private PlayerInput _inputActions;
     private InputAction _interactAction;
@@ -34,6 +34,9 @@ public class TrankAbgabeDoor : MonoBehaviour
             else if (trankGreen.activeSelf)
                 trankIndex = trankGreen.GetComponent<TrankIndex>().trankIndex;
 
+
+                Debug.Log("Trank abgegeben");
+
             if (trankIndex != -1)
             {
                 // Rufe die Methode TrankAbgeben im BestellungManager auf
@@ -42,12 +45,11 @@ public class TrankAbgabeDoor : MonoBehaviour
                 trankRot.SetActive(false);
                 trankBlau.SetActive(false);
                 trankGreen.SetActive(false);
-
             }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // Überprüfe, ob der Spieler sich im Trigger befindet
         if (other.CompareTag("Player2"))
@@ -56,7 +58,7 @@ public class TrankAbgabeDoor : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         // Überprüfe, ob der Spieler den Trigger verlassen hat
         if (other.CompareTag("Player2"))
