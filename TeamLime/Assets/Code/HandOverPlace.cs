@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HandOverPlace : MonoBehaviour
 {
@@ -16,65 +17,75 @@ public class HandOverPlace : MonoBehaviour
     private bool isReturnPressed = false;
     private bool isEPressed = false;
 
-    void Update()
+    [SerializeField] private PlayerInput keyBoardInputActions;
+    [SerializeField] private PlayerInput controllerInputActions;
+    private InputAction keyBoardInteractAction;
+    private InputAction controllerInteractAction;
+
+    private void Start()
+    {
+        keyBoardInteractAction = keyBoardInputActions.actions["Interact"];
+        keyBoardInteractAction.performed += _ => OnKeyboardHandOver();
+
+        controllerInteractAction = controllerInputActions.actions["Interact"];
+        controllerInteractAction.performed += _ => OnControllerHandOver();
+    }
+
+    void OnKeyboardHandOver()
     {
         if (withinReach)
         {
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                isReturnPressed = true;
-            }
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                isEPressed = true;
-            }
-
-            if (isReturnPressed && berryAtPlayerGarden.activeSelf && !berryAtPlace.activeSelf)
-            {
-                PlayerGardenPlaceBerry();
-            }
-            else if (isReturnPressed && !berryAtPlayerGarden.activeSelf && berryAtPlace.activeSelf)
-            {
-                PlayerGardenTakeBerry();
-            }
-
-            if (isEPressed && berryAtPlayerHome.activeSelf && !berryAtPlace.activeSelf)
+            if (berryAtPlayerHome.activeSelf && !berryAtPlace.activeSelf)
             {
                 PlayerHomePlaceBerry();
             }
-            else if (isEPressed && !berryAtPlayerHome.activeSelf && berryAtPlace.activeSelf)
+            else if (!berryAtPlayerHome.activeSelf && berryAtPlace.activeSelf)
             {
                 PlayerHomeTakeBerry();
             }
 
-            if (isReturnPressed && fishAtPlayerGarden.activeSelf && !fishAtPlace.activeSelf)
-            {
-                PlayerGardenPlaceFish();
-            }
-            else if (isReturnPressed && !fishAtPlayerGarden.activeSelf && fishAtPlace.activeSelf)
-            {
-                PlayerGardenTakeFish();
-            }
-
-            if (isEPressed && fishAtPlayerHome.activeSelf && !fishAtPlace.activeSelf)
+            if (fishAtPlayerHome.activeSelf && !fishAtPlace.activeSelf)
             {
                 PlayerHomePlaceFish();
             }
-            else if (isEPressed && !fishAtPlayerHome.activeSelf && fishAtPlace.activeSelf)
+            else if (!fishAtPlayerHome.activeSelf && fishAtPlace.activeSelf)
             {
                 PlayerHomeTakeFish();
             }
         }
-
-        isReturnPressed = false;
-        isEPressed = false;
     }
+
+    void OnControllerHandOver()
+    {
+        if (withinReach)
+        {
+
+            if ( berryAtPlayerGarden.activeSelf && !berryAtPlace.activeSelf)
+            {
+                PlayerGardenPlaceBerry();
+            }
+            else if (!berryAtPlayerGarden.activeSelf && berryAtPlace.activeSelf)
+            {
+                PlayerGardenTakeBerry();
+            }
+
+            if ( fishAtPlayerGarden.activeSelf && !fishAtPlace.activeSelf)
+            {
+                PlayerGardenPlaceFish();
+            }
+            else if (!fishAtPlayerGarden.activeSelf && fishAtPlace.activeSelf)
+            {
+                PlayerGardenTakeFish();
+            }
+
+        }
+    }
+
 
     // Spieler 1: Beere am Spieler 1 ablegen
     public void PlayerGardenPlaceBerry()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && withinReach && berryAtPlayerGarden.activeSelf && !berryAtPlace.activeSelf)
+        if (withinReach && berryAtPlayerGarden.activeSelf && !berryAtPlace.activeSelf)
         {
             berryAtPlayerGarden.SetActive(false);
             berryAtPlace.SetActive(true);
@@ -85,7 +96,7 @@ public class HandOverPlace : MonoBehaviour
     // Spieler 1: Beere vom HandOverPlace nehmen
     public void PlayerGardenTakeBerry()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && withinReach && !berryAtPlayerGarden.activeSelf && berryAtPlace.activeSelf)
+        if ( withinReach && !berryAtPlayerGarden.activeSelf && berryAtPlace.activeSelf)
         {
             berryAtPlayerGarden.SetActive(true);
             berryAtPlace.SetActive(false);
@@ -96,7 +107,7 @@ public class HandOverPlace : MonoBehaviour
     // Spieler 2: Beere am Spieler 2 ablegen
     public void PlayerHomePlaceBerry()
     {
-        if (Input.GetKeyDown(KeyCode.E) && withinReach && berryAtPlayerHome.activeSelf && !berryAtPlace.activeSelf)
+        if (withinReach && berryAtPlayerHome.activeSelf && !berryAtPlace.activeSelf)
         {
             berryAtPlace.SetActive(true);
             berryAtPlayerHome.SetActive(false);
@@ -107,7 +118,7 @@ public class HandOverPlace : MonoBehaviour
     // Spieler 2: Beere vom HandOverPlace nehmen
     public void PlayerHomeTakeBerry()
     {
-        if (Input.GetKeyDown(KeyCode.E) && withinReach && !berryAtPlayerHome.activeSelf && berryAtPlace.activeSelf)
+        if ( withinReach && !berryAtPlayerHome.activeSelf && berryAtPlace.activeSelf)
         {
             berryAtPlace.SetActive(false);
             berryAtPlayerHome.SetActive(true);
@@ -118,7 +129,7 @@ public class HandOverPlace : MonoBehaviour
     // Spieler 1: Fisch am Spieler 1 ablegen
     public void PlayerGardenPlaceFish()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && withinReach && fishAtPlayerGarden.activeSelf && !fishAtPlace.activeSelf)
+        if ( withinReach && fishAtPlayerGarden.activeSelf && !fishAtPlace.activeSelf)
         {
             fishAtPlayerGarden.SetActive(false);
             fishAtPlace.SetActive(true);
@@ -129,7 +140,7 @@ public class HandOverPlace : MonoBehaviour
     // Spieler 1: Fisch vom HandOverPlace nehmen
     public void PlayerGardenTakeFish()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && withinReach && !fishAtPlayerGarden.activeSelf && fishAtPlace.activeSelf)
+        if (withinReach && !fishAtPlayerGarden.activeSelf && fishAtPlace.activeSelf)
         {
             fishAtPlayerGarden.SetActive(true);
             fishAtPlace.SetActive(false);
@@ -140,7 +151,7 @@ public class HandOverPlace : MonoBehaviour
     // Spieler 2: Fisch am Spieler 2 ablegen
     public void PlayerHomePlaceFish()
     {
-        if (Input.GetKeyDown(KeyCode.E) && withinReach && fishAtPlayerHome.activeSelf && !fishAtPlace.activeSelf)
+        if ( withinReach && fishAtPlayerHome.activeSelf && !fishAtPlace.activeSelf)
         {
             fishAtPlace.SetActive(true);
             fishAtPlayerHome.SetActive(false);
@@ -151,7 +162,7 @@ public class HandOverPlace : MonoBehaviour
     // Spieler 2: Fisch vom HandOverPlace nehmen
     public void PlayerHomeTakeFish()
     {
-        if (Input.GetKeyDown(KeyCode.E) && withinReach && !fishAtPlayerHome.activeSelf && fishAtPlace.activeSelf)
+        if (withinReach && !fishAtPlayerHome.activeSelf && fishAtPlace.activeSelf)
         {
             fishAtPlace.SetActive(false);
             fishAtPlayerHome.SetActive(true);
