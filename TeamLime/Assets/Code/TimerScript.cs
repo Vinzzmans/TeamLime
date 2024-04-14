@@ -18,6 +18,9 @@ public class TimerScript : MonoBehaviour
     private bool twoMinutesLeftWarningShown = false;
     private bool oneMinuteLeftWarningShown = false;
 
+    public BestellungManager bestellungManager;
+    public TextMeshProUGUI deliveredText; 
+
     void Start()
     {
         timer = countdownTime; // Timer auf die Anfangszeit setzen
@@ -79,6 +82,8 @@ public class TimerScript : MonoBehaviour
         if (objectToActivate != null)
         {
             objectToActivate.SetActive(true); // Das GameObject aktivieren
+
+            deliveredText.text = bestellungManager.rightOrder.ToString();
         }
     }
 }

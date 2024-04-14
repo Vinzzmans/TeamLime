@@ -6,6 +6,8 @@ public class BestellungManager : MonoBehaviour
     public GameObject Kunden;
     public int aktuelleBestellungIndex;
 
+    public int rightOrder;
+
     void Start()
     {
         KundenAktivieren();
@@ -42,6 +44,7 @@ public class BestellungManager : MonoBehaviour
         if (trankIndex == aktuelleBestellungIndex)
         {
             Debug.Log("Richtiger Trank abgegeben!");
+            rightOrder ++;
             NeueBestellung(); // Neue Bestellung generieren
         }
         else
