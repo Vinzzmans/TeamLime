@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
+    private Animator playerAnimator;
 
 
     private void Awake()
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerAnimator = GetComponent<Animator>();
 
     }
 
@@ -41,6 +43,32 @@ public class Player : MonoBehaviour
     {
         Vector2 playerVelocity = new Vector2(moveInput.x * speed, moveInput.y * speed);
         rb.velocity = playerVelocity;
+        
+        if(!playerAnimator) return;
+        
+        if (moveInput.x > 0)
+        {
+            playerAnimator.SetFloat("Horizontal", 1);
+        }
+        else if (moveInput.x < 0)
+        {
+            playerAnimator.SetFloat("Horizontal", -1);
+        }
+        
+        if (moveInput.y > 0)
+        {
+            playerAnimator.SetFloat("Vertical", 1);
+        }
+        else if (moveInput.y < 0)
+        {
+            playerAnimator.SetFloat("Vertical", -1);
+        }
+        
+        if (moveInput.x == 0 && moveInput.y == 0)
+        {
+            playerAnimator.SetFloat("Horizontal", 0);
+            playerAnimator.SetFloat("Vertical", 0);
+        }
     }
     void OnInteract()
     {
