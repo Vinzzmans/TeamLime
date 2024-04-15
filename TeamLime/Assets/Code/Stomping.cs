@@ -22,6 +22,10 @@ public class Stomping : MonoBehaviour
     private PickFish fishScript;
     private PickBerrys berryScript;
 
+    private AudioSource audioSource;
+    public AudioClip stompClip;
+
+
     public int stompingProgress = 0;
     // Start is called before the first frame update
     void Start()
@@ -30,6 +34,8 @@ public class Stomping : MonoBehaviour
 
         _interactAction = _inputActions.actions["Interact"];
         _interactAction.performed += _ => OnStomping();
+
+        audioSource = GetComponentInChildren<AudioSource>();
     }
 
     // Update is called once per frame
@@ -80,6 +86,8 @@ public class Stomping : MonoBehaviour
         {
             stompingProgress += 1;
             stick.SetActive(true);
+            audioSource.clip = stompClip;
+            audioSource.Play();
         }
     }
     private void OnTriggerEnter2D(Collider2D other)

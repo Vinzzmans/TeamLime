@@ -22,13 +22,12 @@ public class TimerScript : MonoBehaviour
     public TextMeshProUGUI deliveredText;
 
 
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     public AudioClip pickUpClip;
 
     void Start()
     {
         timer = countdownTime; // Timer auf die Anfangszeit setzen
-    audioSource = GetComponentInChildren<AudioSource>();
 
     }
 
@@ -60,6 +59,8 @@ public class TimerScript : MonoBehaviour
             // Warnung für 2 Minuten verbleibende Zeit
             if (timer <= 121 && !twoMinutesLeftWarningShown)
             {
+                audioSource.clip = pickUpClip;
+                audioSource.Play();
                 StartCoroutine(DisplayWarning());
                 twoMinutesLeftWarningShown = true;
             }
@@ -68,7 +69,6 @@ public class TimerScript : MonoBehaviour
             {
                 StartCoroutine(DisplayWarning());
                 oneMinuteLeftWarningShown = true;
-            audioSource.Play();
             }
         }
     }

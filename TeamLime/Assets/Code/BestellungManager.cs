@@ -8,10 +8,15 @@ public class BestellungManager : MonoBehaviour
 
     public int rightOrder;
 
+
+    public AudioSource audioSource;
+    public AudioClip failClip;
+    public AudioClip sucessClip;
     void Start()
     {
         KundenAktivieren();
         NeueBestellung();
+    //audioSource = GetComponentInChildren<AudioSource>();
     }
 
     void KundenAktivieren()
@@ -46,11 +51,15 @@ public class BestellungManager : MonoBehaviour
             Debug.Log("Richtiger Trank abgegeben!");
             rightOrder ++;
             NeueBestellung(); // Neue Bestellung generieren
+            audioSource.clip = sucessClip;
+            audioSource.Play();
         }
         else
         {
             Debug.Log("Falscher Trank abgegeben. Versuche es erneut!");
             // Hier könntest du eine Strafe implementieren oder etwas anderes tun
+            audioSource.clip = failClip;
+            audioSource.Play();
         }
     }
 }

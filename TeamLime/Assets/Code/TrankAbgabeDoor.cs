@@ -8,7 +8,8 @@ public class TrankAbgabeDoor : MonoBehaviour
     public GameObject trankGreen;
 
     private BestellungManager bestellungManager; 
-    public bool withinReach = false; 
+    public bool withinReach = false;
+
 
     [SerializeField] private PlayerInput _inputActions;
     private InputAction _interactAction;

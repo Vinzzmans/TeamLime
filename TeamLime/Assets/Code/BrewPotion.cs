@@ -26,11 +26,20 @@ public class BrewPotion : MonoBehaviour
 
     public bool hasWater;
 
+    private bool isReturning = false;
+
+    private AudioSource audioSource;
+    public AudioClip failClip;
+    public AudioClip sucessClip;
+    public AudioClip blubberClip;
+
+
     // Start is called before the first frame update
     void Start()
     {
         _interactAction = _inputActions.actions["Interact"];
         _interactAction.performed += _ => OnBrewingPotion();
+        audioSource = GetComponentInChildren<AudioSource>();
     }
 
     // Update is called once per frame
@@ -40,43 +49,56 @@ public class BrewPotion : MonoBehaviour
     }
     void OnBrewingPotion()
     {
-        if (withinReach)
+        if (withinReach && !isReturning)
         {
-            if(ingredientCounter < 3 && berry.activeSelf)
+            if (ingredientCounter < 3 && berry.activeSelf)
+                {
+                    berry.SetActive(false);
+                    redCounter += 1;
+                    ingredientCounter += 1;
+                }
+                if (ingredientCounter < 3 && fish.activeSelf)
+                {
+                    fish.SetActive(false);
+                    blueCounter += 1;
+                    ingredientCounter += 1;
+                }
+                if (ingredientCounter < 3 && stompedBerry.activeSelf)
+                {
+                    stompedBerry.SetActive(false);
+                    blueCounter += 2;
+                    greenCounter += 1;
+                    ingredientCounter += 1;
+                }
+                if (ingredientCounter < 3 && stompedFish.activeSelf)
+                {
+                    stompedFish.SetActive(false);
+                    redCounter += 2;
+                    greenCounter += 1;
+                    ingredientCounter += 1;
+                }
+                if (ingredientCounter < 3 && bucketFull.activeSelf)
+                {
+                    bucketFull.SetActive(false);
+                    greenCounter += 1;
+                    hasWater = true;
+                    ingredientCounter += 1;
+                }
+            if (ingredientCounter == 3)
             {
-                berry.SetActive(false);
-                redCounter += 1;
-                ingredientCounter += 1;
+                StartCoroutine(ActivatePotionAfterDelay(4f)); // Starte die Verzögerungsroutine mit einer Verzögerung von 2 Sekunden
+                audioSource.clip = blubberClip;
+                audioSource.Play();
             }
-            if (ingredientCounter < 3 && fish.activeSelf)
-            {
-                fish.SetActive(false);
-                blueCounter += 1;
-                ingredientCounter += 1;
-            }
-            if (ingredientCounter < 3 && stompedBerry.activeSelf)
-            {
-                stompedBerry.SetActive(false);
-                blueCounter += 2;
-                greenCounter += 1;
-                ingredientCounter += 1;
-            }
-            if (ingredientCounter < 3 && stompedFish.activeSelf)
-            {
-                stompedFish.SetActive(false);
-                redCounter += 2;
-                greenCounter += 1;
-                ingredientCounter += 1;
-            }
-            if (ingredientCounter < 3 && bucketFull.activeSelf)
-            {
-                bucketFull.SetActive(false);
-                greenCounter += 1;
-                hasWater = true;
-                ingredientCounter += 1;
-            }
-            if(ingredientCounter == 3)
-            {
+        }
+    }
+
+    private IEnumerator ActivatePotionAfterDelay(float delay)
+    {
+        isReturning = true; // Markiere den Rückrufprozess als aktiv
+        yield return new WaitForSeconds(delay); // Warte für die angegebene Verzögerungszeit
+        audioSource.Stop();
+
                 if (hasWater)
                 {
                     if (redCounter == 3)
@@ -84,34 +106,49 @@ public class BrewPotion : MonoBehaviour
                         redPotion.SetActive(true);
                         Debug.Log("Trank Rot erstellt");
                         PotionReset();
-                    }
+                    audioSource.clip = sucessClip;
+                    audioSource.Play();
+                }
                     else if(blueCounter == 3)
                     {
                         bluePotion.SetActive(true);
                         Debug.Log("Trank Blau erstellt");
                         PotionReset();
-                    }
+                    audioSource.clip = sucessClip;
+                    audioSource.Play();
+                }
                     else if(greenCounter == 3)
                     {
                         greenPotion.SetActive(true);
                         Debug.Log("Trank Grün erstellt");
                         PotionReset();
-                    }
+                    audioSource.clip = sucessClip;
+                    audioSource.Play();
+
+                }
                     else
                     {
                         Debug.Log("Trank fehlgeschlagen wegen Zutaten");
                         PotionReset();
-                    }
+                    audioSource.clip = failClip;
+                    audioSource.Play();
+                }
                 }
                 else
                 {
                     Debug.Log("Trank fehlgeschlagen wegen Wasser");
                     PotionReset();
-                }
-                //PotionReset();
+
+                audioSource.clip = failClip;
+                audioSource.Play();
             }
-        }
+                //PotionReset();
+
+
+        isReturning = false; // Markiere den Rückrufprozess als abgeschlossen
+       
     }
+
 
     void PotionReset()
     {

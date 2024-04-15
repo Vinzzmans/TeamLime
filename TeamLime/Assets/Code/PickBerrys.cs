@@ -8,6 +8,7 @@ public class PickBerrys : MonoBehaviour
     public GameObject berry;
     public bool withinReach = false;
     private PickFish fishScript; // Referenz auf das PickFish-Skript
+    private PickBucket bucketScript;
 
     [SerializeField] private PlayerInput _inputActions;
     private InputAction _interactAction;
@@ -19,6 +20,7 @@ public class PickBerrys : MonoBehaviour
     void Start()
     {
         fishScript = FindObjectOfType<PickFish>(); // Finde das PickFish-Skript im Spiel
+        bucketScript = FindObjectOfType<PickBucket>();
 
         _interactAction = _inputActions.actions["Interact"];
         _interactAction.performed += _ => OnPickUpBerry();
@@ -28,7 +30,7 @@ public class PickBerrys : MonoBehaviour
     void OnPickUpBerry()
     {
         // Überprüfe, ob die Taste "Return" gedrückt wurde
-        if (withinReach && !berry.activeSelf && !fishScript.IsFishActive())
+        if (withinReach && !berry.activeSelf && !fishScript.IsFishActive() && !bucketScript.IsHandBucketActive())
         {
             berry.SetActive(true);
             Debug.Log("Berry ist am start!!");
