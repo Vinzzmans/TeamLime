@@ -8952,6 +8952,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6461036900769459393, guid: 66d2cdac77ca1374abcf1c9d18393803, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6821637330262732973, guid: 66d2cdac77ca1374abcf1c9d18393803, type: 3}
       propertyPath: m_Name
       value: Wasser
@@ -9003,6 +9007,18 @@ PrefabInstance:
     - target: {fileID: 7235572266084612850, guid: 66d2cdac77ca1374abcf1c9d18393803, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647537954732622614, guid: 66d2cdac77ca1374abcf1c9d18393803, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647537954732622614, guid: 66d2cdac77ca1374abcf1c9d18393803, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647537954732622614, guid: 66d2cdac77ca1374abcf1c9d18393803, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.76374805
       objectReference: {fileID: 0}
     - target: {fileID: 8247473556980275688, guid: 66d2cdac77ca1374abcf1c9d18393803, type: 3}
       propertyPath: m_Sprite
