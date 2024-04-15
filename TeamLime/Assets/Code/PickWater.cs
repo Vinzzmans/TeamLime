@@ -16,12 +16,17 @@ public class PickWater : MonoBehaviour
     private PickBerrys berryScript; // Referenz auf das PickBerrys-Skript
     private PickFish fishScript; // Referenz auf das PickFish-Skript
 
+    private AudioSource audioSource;
+    public AudioClip pickUpClip;
+
+
     void Start()
     {
         berryScript = FindObjectOfType<PickBerrys>(); // Finde das PickBerrys-Skript im Spiel
         fishScript = FindObjectOfType<PickFish>(); // Finde das PickFish-Skript im Spiel
         _interactAction = _inputActions.actions["Interact"];
         _interactAction.performed += _ => OnPickUpWater();
+    audioSource = GetComponentInChildren<AudioSource>();
     }
 
     void OnPickUpWater()
@@ -39,6 +44,8 @@ public class PickWater : MonoBehaviour
         yield return new WaitForSeconds(delay); // Warte für die angegebene Verzögerungszeit
         water.SetActive(true); // Aktiviere das Wasser
         Debug.Log("Wasser ist am start!!");
+        audioSource.clip = pickUpClip;
+        audioSource.Play();
         isReturning = false; // Markiere den Rückrufprozess als abgeschlossen
     }
 

@@ -19,11 +19,17 @@ public class TimerScript : MonoBehaviour
     private bool oneMinuteLeftWarningShown = false;
 
     public BestellungManager bestellungManager;
-    public TextMeshProUGUI deliveredText; 
+    public TextMeshProUGUI deliveredText;
+
+
+    private AudioSource audioSource;
+    public AudioClip pickUpClip;
 
     void Start()
     {
         timer = countdownTime; // Timer auf die Anfangszeit setzen
+    audioSource = GetComponentInChildren<AudioSource>();
+
     }
 
     void Update()
@@ -62,6 +68,7 @@ public class TimerScript : MonoBehaviour
             {
                 StartCoroutine(DisplayWarning());
                 oneMinuteLeftWarningShown = true;
+            audioSource.Play();
             }
         }
     }

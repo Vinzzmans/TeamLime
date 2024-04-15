@@ -15,11 +15,16 @@ public class PickFish : MonoBehaviour
 
     private PickBerrys berryScript; // Referenz auf das PickBerrys-Skript
 
+    private AudioSource audioSource;
+    public AudioClip pickUpClip;
+
+
     void Start()
     {
         berryScript = FindObjectOfType<PickBerrys>(); // Finde das PickBerrys-Skript im Spiel
         _interactAction = _inputActions.actions["Interact"];
         _interactAction.performed += _ => OnPickUpFish();
+    audioSource = GetComponentInChildren<AudioSource>();
     }
 
     void OnPickUpFish()
@@ -36,6 +41,8 @@ public class PickFish : MonoBehaviour
         isReturning = true; // Markiere den Rückrufprozess als aktiv
         yield return new WaitForSeconds(delay); // Warte für die angegebene Verzögerungszeit
         fish.SetActive(true); // Aktiviere den Fisch
+        audioSource.clip = pickUpClip;
+        audioSource.Play();
         Debug.Log("Fish ist am start!!");
         isReturning = false; // Markiere den Rückrufprozess als abgeschlossen
     }

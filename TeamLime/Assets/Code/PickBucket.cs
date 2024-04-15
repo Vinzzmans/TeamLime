@@ -31,7 +31,7 @@ public class PickBucket : MonoBehaviour
     void OnBucketPickUp()
     {
         // Überprüfe, ob die Taste "E" gedrückt wurde
-        if (withinReach && !fishScript.IsFishActive())
+        if (withinReach)
         {
             if (handBucket.activeSelf)
             {

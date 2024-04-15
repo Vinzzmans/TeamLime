@@ -12,6 +12,9 @@ public class PickBerrys : MonoBehaviour
     [SerializeField] private PlayerInput _inputActions;
     private InputAction _interactAction;
 
+    private AudioSource audioSource;
+    public AudioClip pickUpClip;
+
 
     void Start()
     {
@@ -19,6 +22,7 @@ public class PickBerrys : MonoBehaviour
 
         _interactAction = _inputActions.actions["Interact"];
         _interactAction.performed += _ => OnPickUpBerry();
+        audioSource = GetComponentInChildren<AudioSource>();
     }
 
     void OnPickUpBerry()
@@ -28,6 +32,7 @@ public class PickBerrys : MonoBehaviour
         {
             berry.SetActive(true);
             Debug.Log("Berry ist am start!!");
+            audioSource.Play();
         }
     }
 
