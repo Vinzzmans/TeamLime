@@ -29,27 +29,27 @@ public class PickFish : MonoBehaviour
 
     void OnPickUpFish()
     {
-        // Überprüfe, ob die Taste "E" gedrückt wurde
+        // ï¿½berprï¿½fe, ob die Taste "E" gedrï¿½ckt wurde
         if (withinReach && !fish.activeSelf && !handBucket2.activeSelf && !isReturning && !berryScript.IsBerryActive())
         {
-            StartCoroutine(ActivateFishAfterDelay(2f)); // Starte die Verzögerungsroutine mit einer Verzögerung von 2 Sekunden
+            StartCoroutine(ActivateFishAfterDelay(0f)); // Starte die Verzï¿½gerungsroutine mit einer Verzï¿½gerung von 2 Sekunden
         }
     }
 
     private IEnumerator ActivateFishAfterDelay(float delay)
     {
-        isReturning = true; // Markiere den Rückrufprozess als aktiv
-        yield return new WaitForSeconds(delay); // Warte für die angegebene Verzögerungszeit
+        isReturning = true; // Markiere den Rï¿½ckrufprozess als aktiv
+        yield return new WaitForSeconds(delay); // Warte fï¿½r die angegebene Verzï¿½gerungszeit
         fish.SetActive(true); // Aktiviere den Fisch
         audioSource.clip = pickUpClip;
         audioSource.Play();
         Debug.Log("Fish ist am start!!");
-        isReturning = false; // Markiere den Rückrufprozess als abgeschlossen
+        isReturning = false; // Markiere den Rï¿½ckrufprozess als abgeschlossen
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Überprüfe, ob der Spieler sich im Trigger befindet
+        // ï¿½berprï¿½fe, ob der Spieler sich im Trigger befindet
         if (other.CompareTag("Player2"))
         {
             withinReach = true;
@@ -58,14 +58,14 @@ public class PickFish : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        // Überprüfe, ob der Spieler den Trigger verlassen hat
+        // ï¿½berprï¿½fe, ob der Spieler den Trigger verlassen hat
         if (other.CompareTag("Player2"))
         {
             withinReach = false;
         }
     }
 
-    // Methode zur Überprüfung, ob der Fisch aktiv ist
+    // Methode zur ï¿½berprï¿½fung, ob der Fisch aktiv ist
     public bool IsFishActive()
     {
         return fish.activeSelf;

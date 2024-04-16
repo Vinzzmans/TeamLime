@@ -9,10 +9,10 @@ public class TimerScript : MonoBehaviour
     public float countdownTime = 60f; // Die Dauer des Timers in Sekunden
     public GameObject objectToActivate; // Das GameObject, das aktiviert werden soll
     public TextMeshProUGUI timerText; // Das TextMeshPro-Objekt, um den Timer anzuzeigen
-    public Color warningColor; // Die Farbe für die Warnung
-    public float warningDisplayDuration = 1f; // Die Dauer, für die die Warnungsfarbe angezeigt wird
+    public Color warningColor; // Die Farbe fÃ¼r die Warnung
+    public float warningDisplayDuration = 1f; // Die Dauer, fÃ¼r die die Warnungsfarbe angezeigt wird
 
-    private float timer; // Der aktuelle Timer-Zähler
+    private float timer; // Der aktuelle Timer-ZÃ¤hler
     private bool timerActive = true; // Ob der Timer aktiv ist
 
     private bool twoMinutesLeftWarningShown = false;
@@ -27,15 +27,15 @@ public class TimerScript : MonoBehaviour
 
     void Start()
     {
+        timerText.gameObject.SetActive(true); // Das GameObject aktivieren
         timer = countdownTime; // Timer auf die Anfangszeit setzen
-
     }
 
     void Update()
     {
         if (timerActive)
         {
-            timer -= Time.deltaTime; // Den Timer herunterzählen
+            timer -= Time.deltaTime; // Den Timer herunterzÃ¤hlen
 
             if (timer <= 0f)
             {
@@ -56,7 +56,7 @@ public class TimerScript : MonoBehaviour
             int seconds = Mathf.FloorToInt(timer);
             timerText.text = seconds.ToString();
 
-            // Warnung für 2 Minuten verbleibende Zeit
+            // Warnung fÃ¼r 2 Minuten verbleibende Zeit
             if (timer <= 121 && !twoMinutesLeftWarningShown)
             {
                 audioSource.clip = pickUpClip;
@@ -64,7 +64,7 @@ public class TimerScript : MonoBehaviour
                 StartCoroutine(DisplayWarning());
                 twoMinutesLeftWarningShown = true;
             }
-            // Warnung für 1 Minute verbleibende Zeit
+            // Warnung fÃ¼r 1 Minute verbleibende Zeit
             else if (timer <= 61 && !oneMinuteLeftWarningShown)
             {
                 StartCoroutine(DisplayWarning());
@@ -77,10 +77,10 @@ public class TimerScript : MonoBehaviour
     {
         timerText.color = warningColor; // Farbe setzen
 
-        // Warte für die angegebene Dauer
+        // Warte fÃ¼r die angegebene Dauer
         yield return new WaitForSeconds(warningDisplayDuration);
 
-        // Farbe zurücksetzen
+        // Farbe zurÃ¼cksetzen
         timerText.color = Color.white;
     }
 
@@ -89,8 +89,8 @@ public class TimerScript : MonoBehaviour
         if (objectToActivate != null)
         {
             objectToActivate.SetActive(true); // Das GameObject aktivieren
-
-            deliveredText.text = bestellungManager.rightOrder.ToString();
+            // deliveredText.text = bestellungManager.rightOrder.ToString();
+            timerText.gameObject.SetActive(false);
         }
     }
 }

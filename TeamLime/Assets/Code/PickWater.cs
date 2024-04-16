@@ -31,27 +31,27 @@ public class PickWater : MonoBehaviour
 
     void OnPickUpWater()
     {
-        // Überprüfe, ob die Interaktions-Aktion ausgelöst wurde
+        // ï¿½berprï¿½fe, ob die Interaktions-Aktion ausgelï¿½st wurde
         if (withinReach && !water.activeSelf && handBucket2.activeSelf && !isReturning && !berryScript.IsBerryActive() && !fishScript.IsFishActive())
         {
-            StartCoroutine(ActivateWaterAfterDelay(2f)); // Starte die Verzögerungsroutine mit einer Verzögerung von 2 Sekunden
+            StartCoroutine(ActivateWaterAfterDelay(0f)); // Starte die Verzï¿½gerungsroutine mit einer Verzï¿½gerung von 2 Sekunden
         }
     }
 
     private IEnumerator ActivateWaterAfterDelay(float delay)
     {
-        isReturning = true; // Markiere den Rückrufprozess als aktiv
-        yield return new WaitForSeconds(delay); // Warte für die angegebene Verzögerungszeit
+        isReturning = true; // Markiere den Rï¿½ckrufprozess als aktiv
+        yield return new WaitForSeconds(delay); // Warte fï¿½r die angegebene Verzï¿½gerungszeit
         water.SetActive(true); // Aktiviere das Wasser
         Debug.Log("Wasser ist am start!!");
         audioSource.clip = pickUpClip;
         audioSource.Play();
-        isReturning = false; // Markiere den Rückrufprozess als abgeschlossen
+        isReturning = false; // Markiere den Rï¿½ckrufprozess als abgeschlossen
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Überprüfe, ob der Spieler sich im Trigger befindet
+        // ï¿½berprï¿½fe, ob der Spieler sich im Trigger befindet
         if (other.CompareTag("Player2"))
         {
             withinReach = true;
@@ -60,14 +60,14 @@ public class PickWater : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        // Überprüfe, ob der Spieler den Trigger verlassen hat
+        // ï¿½berprï¿½fe, ob der Spieler den Trigger verlassen hat
         if (other.CompareTag("Player2"))
         {
             withinReach = false;
         }
     }
 
-    // Methode zur Überprüfung, ob das Wasser aktiv ist
+    // Methode zur ï¿½berprï¿½fung, ob das Wasser aktiv ist
     public bool IsWaterActive()
     {
         return water.activeSelf;
